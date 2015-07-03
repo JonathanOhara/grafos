@@ -11,9 +11,11 @@ Assume v.id de 0..N-1, obedecendo a ordem de insercao dos vertices.
 
 */
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Graph {
     protected List<Node> Vl; //lista temporaria para criar Adj
@@ -111,11 +113,37 @@ public class Graph {
     }
 	
     public void calculateDistanceMatrix() {
+    	distanceMatrix = new int[vertices.length][vertices.length];
     	
+    	for( Node vertex : vertices ){
+    		breadthFirstSearch( vertex );
+    	}
 	}
     
-    private void breadthFirstSearch( Node node ){
+    private void breadthFirstSearch( Node source ){
+    	Queue<Node> queue = new LinkedList<Node>();
     	
+    	for( Node node : vertices ){
+    		node.setColor( Color.white );
+    		node.setDistance( Integer.MAX_VALUE );
+    	}
+    	
+    	source.setDistance( 0 );
+    	source.setColor( Color.gray );
+    	
+    	queue.add(source);
+    	
+    	Node node;
+    	while( !queue.isEmpty() ){
+    		node  = queue.poll();
+    		
+    		//para adjac
+    			//se cor == branco
+    				//adj.d = node.d + 1	
+    				//cor = cinza
+    				//coloca na fila
+    		//node.cor = preto
+    	}
     }
 }
 

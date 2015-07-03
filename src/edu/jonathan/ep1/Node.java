@@ -7,6 +7,7 @@ public class Node {
     private String name; // nome do vertice
     private Color color;
     
+    private int distance;
     
     public Node() {
     }
@@ -37,5 +38,13 @@ public class Node {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
 	}
 }
