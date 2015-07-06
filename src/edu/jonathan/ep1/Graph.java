@@ -21,7 +21,7 @@ public class Graph {
     protected List<Node> Vl; //lista temporaria para criar Adj
     protected int idV; // temporario para contabilizar indices dos vertices no grafo
     public Node[] vertices; // vetor de vertices indexados por 'id'
-    public LinkedList[] Adj; // lista de adjacencia
+    public LinkedList<Node>[] adj; // lista de adjacencia
     public int totV, totE; // total de vertices e arestas no grafo
     
     private int[][] distanceMatrix;
@@ -43,21 +43,21 @@ public class Graph {
     
     public void initAdj() { //chamar para finalizar insercao de vertices
         totV = Vl.size();
-        Adj = new LinkedList[ totV ]; // 1 lista de adjacencia para cada vertice
+        adj = new LinkedList[ totV ]; // 1 lista de adjacencia para cada vertice
         for (int i = 0; i < totV; i++)
-            Adj[i] = new LinkedList();
+            adj[i] = new LinkedList<Node>();
         // cria vetor indexado de vertices
         vertices = new Node[ totV ];
-        Iterator it = Vl.iterator();
+        Iterator<Node> it = Vl.iterator();
         while (it.hasNext()) {
-            Node v = (Node)it.next();
+            Node v = it.next();
             vertices[ v.getId() ] = v;
         }
     }
     
     //insere v na lista de adjacencia de u
     public void insertAdj( Node u, Node v ) {
-        Adj[ u.getId() ].addLast(v);
+        adj[ u.getId() ].addLast(v);
         totE++;
     }
     
@@ -90,7 +90,7 @@ public class Graph {
         for (int i = 0; i < n; i++) {
             Node u = G.vertices[ i ];
             System.out.print( u.getName() + ": " );
-            Iterator<Node> it = G.Adj[ u.getId() ].iterator();
+            Iterator<Node> it = G.adj[ u.getId() ].iterator();
             while (it.hasNext()) {
                 Node v = it.next();
                 System.out.print( v.getName() + ", " );
@@ -115,8 +115,17 @@ public class Graph {
     public void calculateDistanceMatrix() {
     	distanceMatrix = new int[vertices.length][vertices.length];
     	
+    	int i = 0;
     	for( Node vertex : vertices ){
     		breadthFirstSearch( vertex );
+    		
+    		i = 0;
+    		for( Node other: vertices ){    		
+	    		distanceMatrix[i][ other.getId() ] = other.getDistance();
+	    		System.out.print( ( other.getDistance() == Integer.MAX_VALUE ? "." : other.getDistance() )+" ");
+    		}
+    		System.out.println("");
+    		i++;
     	}
 	}
     
@@ -136,13 +145,15 @@ public class Graph {
     	Node node;
     	while( !queue.isEmpty() ){
     		node  = queue.poll();
-    		
-    		//para adjac
-    			//se cor == branco
-    				//adj.d = node.d + 1	
-    				//cor = cinza
-    				//coloca na fila
-    		//node.cor = preto
+
+    		for( Node ad : adj[ node.getId() ]){
+    			if( ad.getColor().equals( Color.white ) ){
+    				ad.setDistance( node.getDistance() + 1 );
+    				ad.setColor(Color.gray);
+    				queue.add(ad);
+    			}
+    			node.setColor( Color.black );
+    		}
     	}
     }
 }
