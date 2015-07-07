@@ -1,8 +1,8 @@
-package edu.jonathan.ep1;
+package edu.jonathan.ep2;
 
 /*
 
-2015mar24: 
+edgeByVertices = new LinkedHashMap<Node, List<Node>>( vertexTotal ); // 1 lista de adjacencia para cada vertice2015mar24: 
 .read(): faz a leitura de um grafo pela entrada padrão
 .print(): imprime listas de adjacencia e matriz de adjacencia
 
@@ -11,22 +11,19 @@ Assume v.id de 0..N-1, obedecendo a ordem de insercao dos vertices.
 
 */
 
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class Graph {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
     public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
     public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
-    
-    private int[][] distanceMatrix;
     
     public Graph() {
         init(10);
@@ -53,21 +50,19 @@ public class Graph {
         edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
-    
-    
-    public void insertAdj( int u, int v ) {
-    	insertAdj( vertices.get(u), vertices.get(v) );
+    public void insertAdj( int u, int v, int weight ) {
+    	insertAdj( vertices.get(u), vertices.get(v), weight );
     }
     
     //insere v na lista de adjacencia de u
-    public void insertAdj( Node u, Node v ) {
+    public void insertAdj( Node u, Node v, int weight ) {
     	List<Edge> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
     		edges = new ArrayList<Edge>();
     	}
     	
-    	edges.add( new Edge( u, v ) );
+    	edges.add( new Edge( u, v, weight ) );
     	
     	edgeByVertices.put(u, edges); 
         edgeTotal++;
@@ -121,64 +116,56 @@ public class Graph {
         System.out.println( "Total de arcos: " + graph.edgeTotal );
     }
 	
-    public void calculateDistanceMatrix() {
-    	int i;
-    	
-    	distanceMatrix = new int[vertexTotal][vertexTotal];
-    	
-    	i = 0;
-    	
-    	for( Node vertex : vertices.values() ){
-    		breadthFirstSearch( vertex );
-    		
-    		for( Node other: vertices.values() ){    		
-	    		distanceMatrix[i][ other.getId() ] = other.getDistance();
-    		}
-    		i++;
-    	}
-	}
     
-    public String getDistanceMatrixForPrint(){
-    	int i, j;
-    	StringBuilder print = new StringBuilder();
-    	
-    	for( i = 0; i < vertexTotal; i++ ){
-    		for( j = 0; j < vertexTotal; j++ ){
-    			print.append( distanceMatrix[i][j] == Integer.MAX_VALUE ? "." : distanceMatrix[i][j] ).append( " " );
-    		}
-    		print.append("\n");
-    	}
-    	
-    	return print.toString();
-    }
-    
-    private void breadthFirstSearch( Node source ){
-    	Queue<Node> queue = new LinkedList<Node>();
+    public void calculateMstPrim( Node source ){
+
+    	PriorityQueue<Node> priorityQueue = new PriorityQueue<Node>(vertexTotal, new Comparator<Node>() {
+			@Override
+			public int compare(Node o1, Node o2) {
+				int comp = Integer.compare( o1.getKey(), o2.getKey() );
+				return comp;
+			}
+    	});
     	
     	for( Node node : vertices.values() ){
-    		node.setColor( Color.white );
-    		node.setDistance( Integer.MAX_VALUE );
+    		node.setKey( Integer.MAX_VALUE );
+    		node.setFather( null );
     	}
     	
-    	source.setDistance( 0 );
-    	source.setColor( Color.gray );
+    	source.setKey( 0 );
     	
-    	queue.add(source);
+    	priorityQueue.addAll( vertices.values() );
     	
-    	Node node;
-    	while( !queue.isEmpty() ){
-    		node  = queue.poll();
-
+    	Node node, other;
+    	while( !priorityQueue.isEmpty() ){
+    		node = priorityQueue.poll();
+    		
     		for( Edge edge : edgeByVertices.get( node ) ){
-    			if( edge.getTo().getColor().equals( Color.white ) ){
-    				edge.getTo().setDistance( node.getDistance() + 1 );
-    				edge.getTo().setColor(Color.gray);
-    				queue.add(edge.getTo());
+    			other = edge.getTo();
+    			if( priorityQueue.contains( other ) && edge.getWeight() < other.getKey() ){
+    				priorityQueue.remove( other );
+    				
+    				other.setKey( edge.getWeight() );
+    				other.setFather( node );
+    				
+    				priorityQueue.add( other );
     			}
-    			node.setColor( Color.black );
     		}
     	}
     }
 
+    public int getGraphWeight(){
+    	int total = 0;
+    	for( Node node : vertices.values() ){
+    		total += node.getKey();
+    	}
+    	
+    	return total;
+    }
 }
+
+
+
+
+
 

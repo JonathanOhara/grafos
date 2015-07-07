@@ -1,13 +1,12 @@
-package edu.jonathan.ep1;
+package edu.jonathan.ep2;
 
-import java.awt.Color;
 
 public class Node {
     private int id; // indice do vertice no grafo
     private String name; // nome do vertice
-    private Color color;
     
-    private int distance;
+    private int key;
+    private Node father;
     
     public Node() {
     }
@@ -32,22 +31,6 @@ public class Node {
 		this.name = name;
 	}
 
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	public int getDistance() {
-		return distance;
-	}
-
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
-
 	@Override
 	public int hashCode() {
 		return id;
@@ -65,5 +48,21 @@ public class Node {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
+	}
+
+	public Node getFather() {
+		return father;
+	}
+
+	public void setFather(Node father) {
+		this.father = father;
 	}
 }
