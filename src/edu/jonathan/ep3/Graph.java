@@ -11,7 +11,10 @@ Assume v.id de 0..N-1, obedecendo a ordem de insercao dos vertices.
 
 */
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,9 @@ public class Graph {
     public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
     public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
+    private int dfsTime;
+    
+    private StringBuilder expression;
     
     public Graph() {
         init(10);
@@ -116,14 +122,66 @@ public class Graph {
 	
     
     public void calculateDFS( ){
-
+    	List<Node> vertexList = new ArrayList<Node>( vertices.values() ); 
+    	executeDfs( vertexList );
+    	invertEdges();
+    	executeDfs( orderVertexByDfsEndTime( vertexList ) );
+    }
+    
+    private List<Node> orderVertexByDfsEndTime(List<Node> vertexList) {
+    
+    	Collections.sort(vertexList, new Comparator<Node>(){
+			@Override
+			public int compare(Node o1, Node o2) {
+				return ( Integer.compare( o1.getDfsEndTime(), o2.getDfsEndTime() ) * - 1 );
+			}
+    		
+    	});
+		return vertexList;
+	}
+	private void invertEdges() {
+    	for( List<Edge> edges : edgeByVertices.values() ){
+    		for( Edge edge : edges){
+    			edge.invertFromTo();
+    		}
+    	}
+		
+	}
+	private void executeDfs( List<Node> vertexList ){
+		expression = new StringBuilder(); 
+    	dfsTime = 0;
+    	
+    	for(Node vertex : vertexList){
+    		vertex.setColor(Color.white);
+    	}
+    	for(Node vertex : vertexList){
+    		if( vertex.getColor().equals(Color.white) ){
+    			dfs(vertex);
+    		}
+    	}
+    }
+    
+    private void dfs(Node vertex){
+    	dfsTime++;
+    	
+    	expression.append("(").append( vertex.getName() );
+    	
+    	vertex.setDfsTime(dfsTime);
+    	vertex.setColor(Color.gray);
+    	
+    	for( Edge edge: edgeByVertices.get(vertex) ){
+    		if( edge.getTo().getColor().equals( Color.white ) ){
+    			dfs(vertex);
+    		}
+    	}
+    	dfsTime++;
+    	vertex.setDfsEndTime( dfsTime );
+    	vertex.setColor(Color.black);
+    	
+    	expression.append(vertex.getName()).append(")");
     }
     
     public String getDFSExpression(){
-    	StringBuilder expression = new StringBuilder();
-    	
-    	
-    	
     	return expression.toString();
     }
 }

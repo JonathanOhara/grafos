@@ -1,9 +1,15 @@
 package edu.jonathan.ep3;
 
+import java.awt.Color;
+
 
 public class Node {
     private int id; // indice do vertice no grafo
     private String name; // nome do vertice
+    private Color color;
+    
+    private int dfsTime;
+    private int dfsEndTime;
     
     private int key;
     private Node father;
@@ -64,5 +70,29 @@ public class Node {
 
 	public void setFather(Node father) {
 		this.father = father;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public int getDfsTime() {
+		return dfsTime;
+	}
+
+	public void setDfsTime(int dfsTime) {
+		this.dfsTime = dfsTime;
+	}
+
+	public int getDfsEndTime() {
+		return dfsEndTime;
+	}
+
+	public void setDfsEndTime(int dfsEndTime) {
+		this.dfsEndTime = dfsEndTime;
 	}
 }

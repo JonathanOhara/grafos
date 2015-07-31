@@ -6,11 +6,10 @@ import java.util.Scanner;
 public class CompsFortes {
 
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
-		
-		graph.calculateDFS();
-		System.out.println( graph.getDFSExpression() );
-//		test();
+//		Graph graph = readGraph();
+//		graph.calculateDFS();
+//		System.out.println( graph.getDFSExpression() );
+		test();
 	}
 	
     public static Graph readGraph() {
@@ -36,7 +35,6 @@ public class CompsFortes {
         for ( i = 0; i < m; i++ ) {
             idFrom = scanner.nextInt();
             idTo = scanner.nextInt();
-            weight = scanner.nextInt();
             graph.insertAdj( idFrom, idTo );
         }
         

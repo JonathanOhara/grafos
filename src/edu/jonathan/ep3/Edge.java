@@ -13,6 +13,12 @@ public class Edge {
 		this.to = to;
 	}
 
+    public void invertFromTo(){
+    	Node aux = from;
+    	from = to;
+    	to = aux;
+    }
+    
 	public Node getFrom() {
 		return from;
 	}
