@@ -140,9 +140,14 @@ public class Graph {
 		return vertexList;
 	}
 	private void invertEdges() {
-    	for( List<Edge> edges : edgeByVertices.values() ){
+		List<List<Edge>> allEdgeList = new ArrayList<List<Edge>>( edgeByVertices.values() );
+		
+		edgeByVertices.clear();
+		
+    	for( List<Edge> edges : allEdgeList ){
     		for( Edge edge : edges){
     			edge.invertFromTo();
+    			insertAdj( edge.getFrom(), edge.getTo() );
     		}
     	}
 		
@@ -152,10 +157,10 @@ public class Graph {
     	dfsTime = 0;
     	
     	for(Node vertex : vertexList){
-    		vertex.setColor(Color.white);
+    		vertex.setColor( Color.white );
     	}
     	for(Node vertex : vertexList){
-    		if( vertex.getColor().equals(Color.white) ){
+    		if( vertex.getColor().equals( Color.white ) ){
     			dfs(vertex);
     		}
     	}
@@ -164,25 +169,31 @@ public class Graph {
     private void dfs(Node vertex){
     	dfsTime++;
     	
-    	expression.append("(").append( vertex.getName() );
+    	expression.append("(").append( vertex.getName() ).append(" ");
     	
-    	vertex.setDfsTime(dfsTime);
-    	vertex.setColor(Color.gray);
+    	vertex.setDfsTime( dfsTime );
+    	vertex.setColor( Color.gray );
     	
-    	for( Edge edge: edgeByVertices.get(vertex) ){
-    		if( edge.getTo().getColor().equals( Color.white ) ){
-    			dfs(vertex);
-    		}
+    	List<Edge> edgeList = edgeByVertices.get(vertex);
+    	
+    	if( edgeList != null ){
+	    	for( Edge edge: edgeList ){
+	    		if( edge.getTo().getColor().equals( Color.white ) ){
+	    			dfs( edge.getTo() );
+	    		}
+	    	}
     	}
-    	dfsTime++;
-    	vertex.setDfsEndTime( dfsTime );
-    	vertex.setColor(Color.black);
     	
-    	expression.append(vertex.getName()).append(")");
+    	dfsTime++;
+    	
+    	vertex.setDfsEndTime( dfsTime );
+    	vertex.setColor( Color.black );
+    	
+    	expression.append(vertex.getName()).append(") ");
     }
     
     public String getDFSExpression(){
-    	return expression.toString();
+    	return expression.toString().trim();
     }
 }
 

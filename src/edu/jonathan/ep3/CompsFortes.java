@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class CompsFortes {
 
 	public static void main( String[] args ) {
-//		Graph graph = readGraph();
-//		graph.calculateDFS();
-//		System.out.println( graph.getDFSExpression() );
-		test();
+		Graph graph = readGraph();
+		graph.calculateDFS();
+		System.out.println( graph.getDFSExpression() );
+//		test();
 	}
 	
     public static Graph readGraph() {
