@@ -10,7 +10,6 @@ public class MST {
 
 	public static void main( String[] args ) {
 		Graph graph = readGraph();
-		
 		graph.calculateMstPrim( graph.vertices.get(0) );
 		System.out.println( graph.getGraphWeight() );
 //		test();

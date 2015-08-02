@@ -14,7 +14,7 @@ public class CompsFortes {
 	
     public static Graph readGraph() {
     	String name;
-        int idFrom, idTo, weight, i, m, n;
+        int idFrom, idTo, i, m, n;
         
         Node v;
         Scanner scanner = new Scanner( System.in );

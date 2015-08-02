@@ -7,7 +7,6 @@ public class MatrizDist {
 	
 	public static void main( String[] args ) {
 		Graph graph = readGraph();
-		
 		graph.calculateDistanceMatrix();
 		System.out.println( graph.getDistanceMatrixForPrint() );
 		//test();
