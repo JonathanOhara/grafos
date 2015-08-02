@@ -1,34 +1,31 @@
-package Jonathan.EP2;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
-import Jonathan.EP2.Graph;
-import Jonathan.EP2.Node;
-
 public class MST {
 
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
+		Graph2 graph = readGraph();
 		graph.calculateMstPrim( graph.vertices.get(0) );
 		System.out.println( graph.getGraphWeight() );
 //		test();
 	}
 	
-    public static Graph readGraph() {
+    public static Graph2 readGraph() {
     	String name;
         int idFrom, idTo, weight, i, m, n;
         
-        Node v;
+        Node2 v;
         Scanner scanner = new Scanner( System.in );
 
         n = scanner.nextInt();
         
-        Graph graph = new Graph( n );
+        Graph2 graph = new Graph2( n );
         
         for ( i = 0; i < n; i++ ) {
             name = scanner.next();
-            v = new Node( name );
+            v = new Node2( name );
             graph.addNode( v );
         }
         
@@ -48,7 +45,7 @@ public class MST {
     }
 	
    public static void test(){
-    	Graph graph;
+    	Graph2 graph;
     	ByteArrayInputStream in;
     	
     	String in1 = "6\n1\n2\n3\n4\n5\n6\n14\n0 1 2\n0 3 4\n1 4 1\n1 0 2\n1 3 9\n2 4 14\n2 5 3\n3 1 9\n3 0 4\n3 4 6\n4 3 6\n4 1 1\n4 2 14\n5 2 3";

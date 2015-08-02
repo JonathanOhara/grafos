@@ -1,17 +1,17 @@
-package Jonathan.EP5;
 
 
-public class Edge {
-    private Node from, to;
+
+public class Edge5 {
+    private Node5 from, to;
     
-    private Edge reverseEdge;
+    private Edge5 reverseEdge;
     
     private int weight;
 	
-    public Edge() {
+    public Edge5() {
 	}
     
-    public Edge(Node from, Node to, int weight) {
+    public Edge5(Node5 from, Node5 to, int weight) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -19,21 +19,21 @@ public class Edge {
 	}
 
     public void invertFromTo(){
-    	Node aux = from;
+    	Node5 aux = from;
     	from = to;
     	to = aux;
     }
     
-	public Node getFrom() {
+	public Node5 getFrom() {
 		return from;
 	}
-	public void setFrom(Node from) {
+	public void setFrom(Node5 from) {
 		this.from = from;
 	}
-	public Node getTo() {
+	public Node5 getTo() {
 		return to;
 	}
-	public void setTo(Node to) {
+	public void setTo(Node5 to) {
 		this.to = to;
 	}
 
@@ -45,11 +45,11 @@ public class Edge {
 		this.weight = weight;
 	}
 
-	public Edge getReverseEdge() {
+	public Edge5 getReverseEdge() {
 		return reverseEdge;
 	}
 
-	public void setReverseEdge(Edge reverseEdge) {
+	public void setReverseEdge(Edge5 reverseEdge) {
 		this.reverseEdge = reverseEdge;
 	}
     

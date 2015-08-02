@@ -1,33 +1,30 @@
-package Jonathan.EP5;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
-import Jonathan.EP5.Graph;
-import Jonathan.EP5.Node;
-
 public class FluxoMax {
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
+		Graph5 graph = readGraph();
 		graph.calculateMaximumFlow();
 		System.out.println( graph.getMaximumFlow() );
 //		test();
 	}
 	
-    public static Graph readGraph() {
+    public static Graph5 readGraph() {
     	String name;
         int idFrom, idTo, i, m, n, weight;
         
-        Node v;
+        Node5 v;
         Scanner scanner = new Scanner( System.in );
 
         n = scanner.nextInt();
         
-        Graph graph = new Graph( n );
+        Graph5 graph = new Graph5( n );
         
         for ( i = 0; i < n; i++ ) {
             name = scanner.next();
-            v = new Node( name );
+            v = new Node5( name );
             graph.addNode( v );
         }
         
@@ -47,7 +44,7 @@ public class FluxoMax {
     }
 	
    public static void test(){
-    	Graph graph;
+    	Graph5 graph;
     	ByteArrayInputStream in;
     	String inString, outString;
 

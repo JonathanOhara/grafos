@@ -1,4 +1,4 @@
-package Jonathan.EP1;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -6,26 +6,26 @@ import java.util.Scanner;
 public class MatrizDist {
 	
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
+		Graph1 graph = readGraph();
 		graph.calculateDistanceMatrix();
 		System.out.println( graph.getDistanceMatrixForPrint() );
 		//test();
 	}
 	
-    public static Graph readGraph() {
+    public static Graph1 readGraph() {
     	String name;
         int idFrom, idTo, i, m, n;
         
-        Node v;
+        Node1 v;
         Scanner scanner = new Scanner( System.in );
 
         n = scanner.nextInt();
         
-        Graph graph = new Graph( n );
+        Graph1 graph = new Graph1( n );
         
         for ( i = 0; i < n; i++ ) {
             name = scanner.next();
-            v = new Node( name );
+            v = new Node1( name );
             graph.addNode( v );
         }
         
@@ -44,7 +44,7 @@ public class MatrizDist {
     }
     
     public static void test(){
-    	Graph graph;
+    	Graph1 graph;
     	ByteArrayInputStream in;
     	
     	String in1 = "6\n1\n2\n3\n4\n5\n6\n14\n0 1\n0 4\n1 0\n1 2\n1 4\n2 1\n2 3\n3 2\n3 4\n3 5\n4 0\n4 1\n4 3\n5 3";

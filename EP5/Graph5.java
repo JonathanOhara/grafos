@@ -1,4 +1,4 @@
-package Jonathan.EP5;
+
 
 /*
 
@@ -20,29 +20,29 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 
-public class Graph {
+public class Graph5 {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
-    public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
-    public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
+    public Map<Integer, Node5> vertices; // vetor de vertices indexados por 'id'
+    public Map<Node5, List<Edge5>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
     
     private int maximumFlow;
     
-    public Graph() {
+    public Graph5() {
         init(10);
     }
-    public Graph(int n) {
+    public Graph5(int n) {
     	init(n);
 	}
 	
     protected void init( int n ) {
-        vertices = new LinkedHashMap<Integer, Node>( n );
+        vertices = new LinkedHashMap<Integer, Node5>( n );
 
         lastIndex = 0;
         edgeTotal = 0;
     }
     
-    public void addNode( Node v ) {
+    public void addNode( Node5 v ) {
         v.setId( lastIndex++ );
         vertices.put( v.getId(), v );
     }
@@ -50,25 +50,25 @@ public class Graph {
     public void initAdj( int m ) { //chamar para finalizar insercao de vertices
         vertexTotal = vertices.size();
         
-        edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
+        edgeByVertices = new LinkedHashMap<Node5, List<Edge5>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
     public void insertAdj( int u, int v, int weight ) {
-    	Edge edge = insertAdj( vertices.get(u), vertices.get(v), weight );
-    	Edge reverseEdge = insertAdj( vertices.get(v), vertices.get(u), 0 );
+    	Edge5 edge = insertAdj( vertices.get(u), vertices.get(v), weight );
+    	Edge5 reverseEdge = insertAdj( vertices.get(v), vertices.get(u), 0 );
     	
     	edge.setReverseEdge( reverseEdge );
     	reverseEdge.setReverseEdge( edge );
     }
     
     //insere v na lista de adjacencia de u
-    public Edge insertAdj( Node u, Node v, int weight ) {
-    	List<Edge> edges = edgeByVertices.get( u );
+    public Edge5 insertAdj( Node5 u, Node5 v, int weight ) {
+    	List<Edge5> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
-    		edges = new ArrayList<Edge>();
+    		edges = new ArrayList<Edge5>();
     	}
-    	Edge edge = new Edge( u, v, weight );
+    	Edge5 edge = new Edge5( u, v, weight );
     	
     	edges.add( edge );
     	
@@ -94,7 +94,7 @@ public class Graph {
     */
 
     public void print() {
-        Graph graph = this;
+        Graph5 graph = this;
         int n = graph.vertexTotal;
         int[][] madj = new int[n][n];
         
@@ -104,10 +104,10 @@ public class Graph {
             }
         }
 
-        for ( Entry< Node, List<Edge>> entry: edgeByVertices.entrySet() ) {
+        for ( Entry< Node5, List<Edge5>> entry: edgeByVertices.entrySet() ) {
             System.out.print( entry.getKey().getName() + ": " );
             
-            for( Edge edge : entry.getValue() ){
+            for( Edge5 edge : entry.getValue() ){
             	System.out.print( edge.getTo().getName() + ", " );
             	madj[ entry.getKey().getId() ][ edge.getTo().getId() ] = 1;
             }
@@ -126,8 +126,8 @@ public class Graph {
         System.out.println( "Total de arcos: " + graph.edgeTotal );
     }
 
-    private Node findNodeByName(String name){
-    	for( Node n : vertices.values() ){
+    private Node5 findNodeByName(String name){
+    	for( Node5 n : vertices.values() ){
     		if( n.getName().equals(name) ){
     			return n;
     		}
@@ -135,10 +135,10 @@ public class Graph {
     	return null;
     }
     
-    private boolean hasAugmentativePath( Node source, Node target ){
-    	Queue<Node> queue = new LinkedList<Node>();
+    private boolean hasAugmentativePath( Node5 source, Node5 target ){
+    	Queue<Node5> queue = new LinkedList<Node5>();
     	
-    	for( Node node : vertices.values() ){
+    	for( Node5 node : vertices.values() ){
     		node.setColor( Color.white );
     		node.setDistance( Integer.MAX_VALUE );
     	}
@@ -148,13 +148,13 @@ public class Graph {
     	
     	queue.add(source);
     	
-    	Node node;
+    	Node5 node;
     	while( !queue.isEmpty() ){
     		node  = queue.poll();
 
-    		List<Edge> edges = edgeByVertices.get( node );
+    		List<Edge5> edges = edgeByVertices.get( node );
     		if( edges != null ){
-	    		for( Edge edge : edges ){
+	    		for( Edge5 edge : edges ){
 	    			if( edge.getWeight()> 0 &&
 	    			edge.getTo().getColor().equals( Color.white ) ){
 	    				
@@ -174,8 +174,8 @@ public class Graph {
     }
     
 	public void calculateMaximumFlow() {
-		Node s, t;
-		Edge fatherEdge;
+		Node5 s, t;
+		Edge5 fatherEdge;
 		
 		maximumFlow = 0;
 		

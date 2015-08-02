@@ -1,17 +1,25 @@
-package Jonathan.EP2;
 
 
-public class Node {
+import java.awt.Color;
+
+
+public class Node4 {
     private int id; // indice do vertice no grafo
     private String name; // nome do vertice
+    private Color color;
+    
     
     private int key;
-    private Node father;
     
-    public Node() {
+    private Node4 father;
+    private int distance;
+    
+    
+    
+    public Node4() {
     }
 
-    public Node(String name) {
+    public Node4(String name) {
         this.name = name;
     }
 
@@ -44,10 +52,34 @@ public class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		Node4 other = (Node4) obj;
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Node4 getFather() {
+		return father;
+	}
+
+	public void setFather(Node4 father) {
+		this.father = father;
+	}
+
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
 	}
 
 	public int getKey() {
@@ -57,12 +89,5 @@ public class Node {
 	public void setKey(int key) {
 		this.key = key;
 	}
-
-	public Node getFather() {
-		return father;
-	}
-
-	public void setFather(Node father) {
-		this.father = father;
-	}
+	
 }

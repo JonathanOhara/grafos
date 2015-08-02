@@ -1,18 +1,18 @@
-package Jonathan.EP1;
+
 
 import java.awt.Color;
 
-public class Node {
+public class Node1 {
     private int id; // indice do vertice no grafo
     private String name; // nome do vertice
     private Color color;
     
     private int distance;
     
-    public Node() {
+    public Node1() {
     }
 
-    public Node(String name) {
+    public Node1(String name) {
         this.name = name;
     }
 
@@ -61,7 +61,7 @@ public class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		Node1 other = (Node1) obj;
 		if (id != other.id)
 			return false;
 		return true;

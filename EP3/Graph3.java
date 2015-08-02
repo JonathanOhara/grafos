@@ -1,4 +1,4 @@
-package Jonathan.EP3;
+
 
 /*
 
@@ -20,30 +20,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Graph {
+public class Graph3 {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
-    public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
-    public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
+    public Map<Integer, Node3> vertices; // vetor de vertices indexados por 'id'
+    public Map<Node3, List<Edge3>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
     private int dfsTime;
     
     private StringBuilder expression;
     
-    public Graph() {
+    public Graph3() {
         init(10);
     }
-    public Graph(int n) {
+    public Graph3(int n) {
     	init(n);
 	}
 	
     protected void init( int n ) {
-        vertices = new LinkedHashMap<Integer, Node>( n );
+        vertices = new LinkedHashMap<Integer, Node3>( n );
         
         lastIndex = 0;
         edgeTotal = 0;
     }
     
-    public void addNode( Node v ) {
+    public void addNode( Node3 v ) {
         v.setId( lastIndex++ );
         vertices.put( v.getId(), v );
     }
@@ -51,7 +51,7 @@ public class Graph {
     public void initAdj( int m ) { //chamar para finalizar insercao de vertices
         vertexTotal = vertices.size();
         
-        edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
+        edgeByVertices = new LinkedHashMap<Node3, List<Edge3>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
     public void insertAdj( int u, int v ) {
@@ -59,14 +59,14 @@ public class Graph {
     }
     
     //insere v na lista de adjacencia de u
-    public void insertAdj( Node u, Node v ) {
-    	List<Edge> edges = edgeByVertices.get( u );
+    public void insertAdj( Node3 u, Node3 v ) {
+    	List<Edge3> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
-    		edges = new ArrayList<Edge>();
+    		edges = new ArrayList<Edge3>();
     	}
     	
-    	edges.add( new Edge( u, v ) );
+    	edges.add( new Edge3( u, v ) );
     	
     	edgeByVertices.put(u, edges); 
         edgeTotal++;
@@ -88,7 +88,7 @@ public class Graph {
     */
 
     public void print() {
-        Graph graph = this;
+        Graph3 graph = this;
         int n = graph.vertexTotal;
         int[][] madj = new int[n][n];
         
@@ -98,10 +98,10 @@ public class Graph {
             }
         }
 
-        for ( Entry< Node, List<Edge>> entry: edgeByVertices.entrySet() ) {
+        for ( Entry< Node3, List<Edge3>> entry: edgeByVertices.entrySet() ) {
             System.out.print( entry.getKey().getName() + ": " );
             
-            for( Edge edge : entry.getValue() ){
+            for( Edge3 edge : entry.getValue() ){
             	System.out.print( edge.getTo().getName() + ", " );
             	madj[ entry.getKey().getId() ][ edge.getTo().getId() ] = 1;
             }
@@ -122,17 +122,17 @@ public class Graph {
 	
     
     public void calculateDFS( ){
-    	List<Node> vertexList = new ArrayList<Node>( vertices.values() ); 
+    	List<Node3> vertexList = new ArrayList<Node3>( vertices.values() ); 
     	executeDfs( vertexList );
     	invertEdges();
     	executeDfs( orderVertexByDfsEndTime( vertexList ) );
     }
     
-    private List<Node> orderVertexByDfsEndTime(List<Node> vertexList) {
+    private List<Node3> orderVertexByDfsEndTime(List<Node3> vertexList) {
     
-    	Collections.sort(vertexList, new Comparator<Node>(){
+    	Collections.sort(vertexList, new Comparator<Node3>(){
 			@Override
-			public int compare(Node o1, Node o2) {
+			public int compare(Node3 o1, Node3 o2) {
 				return ( Integer.compare( o1.getDfsEndTime(), o2.getDfsEndTime() ) * - 1 );
 			}
     		
@@ -140,33 +140,33 @@ public class Graph {
 		return vertexList;
 	}
 	private void invertEdges() {
-		List<List<Edge>> allEdgeList = new ArrayList<List<Edge>>( edgeByVertices.values() );
+		List<List<Edge3>> allEdgeList = new ArrayList<List<Edge3>>( edgeByVertices.values() );
 		
 		edgeByVertices.clear();
 		
-    	for( List<Edge> edges : allEdgeList ){
-    		for( Edge edge : edges){
+    	for( List<Edge3> edges : allEdgeList ){
+    		for( Edge3 edge : edges){
     			edge.invertFromTo();
     			insertAdj( edge.getFrom(), edge.getTo() );
     		}
     	}
 		
 	}
-	private void executeDfs( List<Node> vertexList ){
+	private void executeDfs( List<Node3> vertexList ){
 		expression = new StringBuilder(); 
     	dfsTime = 0;
     	
-    	for(Node vertex : vertexList){
+    	for(Node3 vertex : vertexList){
     		vertex.setColor( Color.white );
     	}
-    	for(Node vertex : vertexList){
+    	for(Node3 vertex : vertexList){
     		if( vertex.getColor().equals( Color.white ) ){
     			dfs(vertex);
     		}
     	}
     }
     
-    private void dfs(Node vertex){
+    private void dfs(Node3 vertex){
     	dfsTime++;
     	
     	expression.append("(").append( vertex.getName() ).append(" ");
@@ -174,10 +174,10 @@ public class Graph {
     	vertex.setDfsTime( dfsTime );
     	vertex.setColor( Color.gray );
     	
-    	List<Edge> edgeList = edgeByVertices.get(vertex);
+    	List<Edge3> edgeList = edgeByVertices.get(vertex);
     	
     	if( edgeList != null ){
-	    	for( Edge edge: edgeList ){
+	    	for( Edge3 edge: edgeList ){
 	    		if( edge.getTo().getColor().equals( Color.white ) ){
 	    			dfs( edge.getTo() );
 	    		}

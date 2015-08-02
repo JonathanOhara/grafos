@@ -1,4 +1,4 @@
-package Jonathan.EP3;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -6,26 +6,26 @@ import java.util.Scanner;
 public class CompsFortes {
 
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
+		Graph3 graph = readGraph();
 		graph.calculateDFS();
 		System.out.println( graph.getDFSExpression() );
 //		test();
 	}
 	
-    public static Graph readGraph() {
+    public static Graph3 readGraph() {
     	String name;
         int idFrom, idTo, i, m, n;
         
-        Node v;
+        Node3 v;
         Scanner scanner = new Scanner( System.in );
 
         n = scanner.nextInt();
         
-        Graph graph = new Graph( n );
+        Graph3 graph = new Graph3( n );
         
         for ( i = 0; i < n; i++ ) {
             name = scanner.next();
-            v = new Node( name );
+            v = new Node3( name );
             graph.addNode( v );
         }
         
@@ -44,7 +44,7 @@ public class CompsFortes {
     }
 	
    public static void test(){
-    	Graph graph;
+    	Graph3 graph;
     	ByteArrayInputStream in;
     	String inString, outString;
     	

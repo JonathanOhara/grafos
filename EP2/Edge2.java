@@ -1,30 +1,30 @@
-package Jonathan.EP2;
 
 
-public class Edge {
-    private Node from, to;
+
+public class Edge2 {
+    private Node2 from, to;
     private int weight;
 	
-    public Edge() {
+    public Edge2() {
 	}
     
-    public Edge(Node from, Node to, int weight) {
+    public Edge2(Node2 from, Node2 to, int weight) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.weight = weight;
 	}
 
-	public Node getFrom() {
+	public Node2 getFrom() {
 		return from;
 	}
-	public void setFrom(Node from) {
+	public void setFrom(Node2 from) {
 		this.from = from;
 	}
-	public Node getTo() {
+	public Node2 getTo() {
 		return to;
 	}
-	public void setTo(Node to) {
+	public void setTo(Node2 to) {
 		this.to = to;
 	}
 	public int getWeight() {

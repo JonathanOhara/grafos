@@ -1,23 +1,23 @@
-package Jonathan.EP3;
+
 
 import java.awt.Color;
 
 
-public class Node {
+
+public class Node5 {
     private int id; // indice do vertice no grafo
     private String name; // nome do vertice
     private Color color;
     
-    private int dfsTime;
-    private int dfsEndTime;
+    private int distance;
+    private int flow;
     
-    private int key;
-    private Node father;
+    private Edge5 edgeToFather;
     
-    public Node() {
+    public Node5() {
     }
 
-    public Node(String name) {
+    public Node5(String name) {
         this.name = name;
     }
 
@@ -50,26 +50,18 @@ public class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		Node5 other = (Node5) obj;
 		if (id != other.id)
 			return false;
 		return true;
 	}
 
-	public int getKey() {
-		return key;
+	public int getFlow() {
+		return flow;
 	}
 
-	public void setKey(int key) {
-		this.key = key;
-	}
-
-	public Node getFather() {
-		return father;
-	}
-
-	public void setFather(Node father) {
-		this.father = father;
+	public void setFlow(int flow) {
+		this.flow = flow;
 	}
 
 	public Color getColor() {
@@ -80,19 +72,22 @@ public class Node {
 		this.color = color;
 	}
 
-	public int getDfsTime() {
-		return dfsTime;
+	public int getDistance() {
+		return distance;
 	}
 
-	public void setDfsTime(int dfsTime) {
-		this.dfsTime = dfsTime;
+	public void setDistance(int distance) {
+		this.distance = distance;
 	}
 
-	public int getDfsEndTime() {
-		return dfsEndTime;
+	public Edge5 getEdgeToFather() {
+		return edgeToFather;
 	}
 
-	public void setDfsEndTime(int dfsEndTime) {
-		this.dfsEndTime = dfsEndTime;
+	public void setEdgeToFather(Edge5 edgeToFather) {
+		this.edgeToFather = edgeToFather;
 	}
+
+
+	
 }

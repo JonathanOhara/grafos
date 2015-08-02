@@ -1,4 +1,4 @@
-package Jonathan.EP4;
+
 
 /*
 
@@ -19,29 +19,29 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
-public class Graph {
+public class Graph4 {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
-    public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
-    public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
+    public Map<Integer, Node4> vertices; // vetor de vertices indexados por 'id'
+    public Map<Node4, List<Edge4>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
     
     private int[][] distanceMatrix;
     
-    public Graph() {
+    public Graph4() {
         init(10);
     }
-    public Graph(int n) {
+    public Graph4(int n) {
     	init(n);
 	}
 	
     protected void init( int n ) {
-        vertices = new LinkedHashMap<Integer, Node>( n );
+        vertices = new LinkedHashMap<Integer, Node4>( n );
         
         lastIndex = 0;
         edgeTotal = 0;
     }
     
-    public void addNode( Node v ) {
+    public void addNode( Node4 v ) {
         v.setId( lastIndex++ );
         vertices.put( v.getId(), v );
     }
@@ -49,7 +49,7 @@ public class Graph {
     public void initAdj( int m ) { //chamar para finalizar insercao de vertices
         vertexTotal = vertices.size();
         
-        edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
+        edgeByVertices = new LinkedHashMap<Node4, List<Edge4>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
     public void insertAdj( int u, int v, int weight ) {
@@ -57,14 +57,14 @@ public class Graph {
     }
     
     //insere v na lista de adjacencia de u
-    public void insertAdj( Node u, Node v, int weight ) {
-    	List<Edge> edges = edgeByVertices.get( u );
+    public void insertAdj( Node4 u, Node4 v, int weight ) {
+    	List<Edge4> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
-    		edges = new ArrayList<Edge>();
+    		edges = new ArrayList<Edge4>();
     	}
     	
-    	edges.add( new Edge( u, v, weight ) );
+    	edges.add( new Edge4( u, v, weight ) );
     	
     	edgeByVertices.put(u, edges); 
         edgeTotal++;
@@ -86,7 +86,7 @@ public class Graph {
     */
 
     public void print() {
-        Graph graph = this;
+        Graph4 graph = this;
         int n = graph.vertexTotal;
         int[][] madj = new int[n][n];
         
@@ -96,10 +96,10 @@ public class Graph {
             }
         }
 
-        for ( Entry< Node, List<Edge>> entry: edgeByVertices.entrySet() ) {
+        for ( Entry< Node4, List<Edge4>> entry: edgeByVertices.entrySet() ) {
             System.out.print( entry.getKey().getName() + ": " );
             
-            for( Edge edge : entry.getValue() ){
+            for( Edge4 edge : entry.getValue() ){
             	System.out.print( edge.getTo().getName() + ", " );
             	madj[ entry.getKey().getId() ][ edge.getTo().getId() ] = 1;
             }
@@ -128,23 +128,23 @@ public class Graph {
 			}
 		}
 		
-		for( Node from : vertices.values() ){
+		for( Node4 from : vertices.values() ){
 			dijkstra(from);
 		}
 		
 	}
 	
-	private void dijkstra(Node from) {
-		Node u;
-		PriorityQueue<Node> queue = new PriorityQueue<Node>(new Comparator<Node>() {
+	private void dijkstra(Node4 from) {
+		Node4 u;
+		PriorityQueue<Node4> queue = new PriorityQueue<Node4>(new Comparator<Node4>() {
 			@Override
-			public int compare(Node o1, Node o2) {
+			public int compare(Node4 o1, Node4 o2) {
 				return Integer.compare(o1.getDistance(), o2.getDistance());
 			}
 		
 		});
 		
-		for( Node vertex : vertices.values() ){
+		for( Node4 vertex : vertices.values() ){
 			vertex.setDistance( Integer.MAX_VALUE );
 			vertex.setFather( null );
 		}
@@ -160,9 +160,9 @@ public class Graph {
 			//Linha Riscada 2
 			
 
-			List<Edge> edges = edgeByVertices.get(u);
+			List<Edge4> edges = edgeByVertices.get(u);
 			if( edges != null ){
-				for( Edge edge : edges ){
+				for( Edge4 edge : edges ){
 					relax( edge );
 	
 					if( queue.contains(edge.getTo()) ){
@@ -177,7 +177,7 @@ public class Graph {
 		
 	}
 	
-	private void relax(Edge edge) {
+	private void relax(Edge4 edge) {
 		int distancePlusWeight = edge.getFrom().getDistance() == Integer.MAX_VALUE ? Integer.MAX_VALUE : edge.getFrom().getDistance() + edge.getWeight();
    		if( distancePlusWeight < edge.getTo().getDistance() ){
    			edge.getTo().setDistance( distancePlusWeight );

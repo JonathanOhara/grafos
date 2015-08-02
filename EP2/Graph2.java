@@ -1,4 +1,4 @@
-package Jonathan.EP2;
+
 
 /*
 
@@ -19,27 +19,27 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
-public class Graph {
+public class Graph2 {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
-    public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
-    public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
+    public Map<Integer, Node2> vertices; // vetor de vertices indexados por 'id'
+    public Map<Node2, List<Edge2>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
     
-    public Graph() {
+    public Graph2() {
         init(10);
     }
-    public Graph(int n) {
+    public Graph2(int n) {
     	init(n);
 	}
 	
     protected void init( int n ) {
-        vertices = new LinkedHashMap<Integer, Node>( n );
+        vertices = new LinkedHashMap<Integer, Node2>( n );
         
         lastIndex = 0;
         edgeTotal = 0;
     }
     
-    public void addNode( Node v ) {
+    public void addNode( Node2 v ) {
         v.setId( lastIndex++ );
         vertices.put( v.getId(), v );
     }
@@ -47,7 +47,7 @@ public class Graph {
     public void initAdj( int m ) { //chamar para finalizar insercao de vertices
         vertexTotal = vertices.size();
         
-        edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
+        edgeByVertices = new LinkedHashMap<Node2, List<Edge2>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
     public void insertAdj( int u, int v, int weight ) {
@@ -55,14 +55,14 @@ public class Graph {
     }
     
     //insere v na lista de adjacencia de u
-    public void insertAdj( Node u, Node v, int weight ) {
-    	List<Edge> edges = edgeByVertices.get( u );
+    public void insertAdj( Node2 u, Node2 v, int weight ) {
+    	List<Edge2> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
-    		edges = new ArrayList<Edge>();
+    		edges = new ArrayList<Edge2>();
     	}
     	
-    	edges.add( new Edge( u, v, weight ) );
+    	edges.add( new Edge2( u, v, weight ) );
     	
     	edgeByVertices.put(u, edges); 
         edgeTotal++;
@@ -84,7 +84,7 @@ public class Graph {
     */
 
     public void print() {
-        Graph graph = this;
+        Graph2 graph = this;
         int n = graph.vertexTotal;
         int[][] madj = new int[n][n];
         
@@ -94,10 +94,10 @@ public class Graph {
             }
         }
 
-        for ( Entry< Node, List<Edge>> entry: edgeByVertices.entrySet() ) {
+        for ( Entry< Node2, List<Edge2>> entry: edgeByVertices.entrySet() ) {
             System.out.print( entry.getKey().getName() + ": " );
             
-            for( Edge edge : entry.getValue() ){
+            for( Edge2 edge : entry.getValue() ){
             	System.out.print( edge.getTo().getName() + ", " );
             	madj[ entry.getKey().getId() ][ edge.getTo().getId() ] = 1;
             }
@@ -117,17 +117,17 @@ public class Graph {
     }
 	
     
-    public void calculateMstPrim( Node source ){
+    public void calculateMstPrim( Node2 source ){
 
-    	PriorityQueue<Node> priorityQueue = new PriorityQueue<Node>(vertexTotal, new Comparator<Node>() {
+    	PriorityQueue<Node2> priorityQueue = new PriorityQueue<Node2>(vertexTotal, new Comparator<Node2>() {
 			@Override
-			public int compare(Node o1, Node o2) {
+			public int compare(Node2 o1, Node2 o2) {
 				int comp = Integer.compare( o1.getKey(), o2.getKey() );
 				return comp;
 			}
     	});
     	
-    	for( Node node : vertices.values() ){
+    	for( Node2 node : vertices.values() ){
     		node.setKey( Integer.MAX_VALUE );
     		node.setFather( null );
     	}
@@ -136,11 +136,11 @@ public class Graph {
     	
     	priorityQueue.addAll( vertices.values() );
     	
-    	Node node, other;
+    	Node2 node, other;
     	while( !priorityQueue.isEmpty() ){
     		node = priorityQueue.poll();
     		
-    		for( Edge edge : edgeByVertices.get( node ) ){
+    		for( Edge2 edge : edgeByVertices.get( node ) ){
     			other = edge.getTo();
     			if( priorityQueue.contains( other ) && edge.getWeight() < other.getKey() ){
     				priorityQueue.remove( other );
@@ -156,7 +156,7 @@ public class Graph {
 
     public int getGraphWeight(){
     	int total = 0;
-    	for( Node node : vertices.values() ){
+    	for( Node2 node : vertices.values() ){
     		total += node.getKey();
     	}
     	

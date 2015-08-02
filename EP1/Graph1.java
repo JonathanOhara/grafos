@@ -1,4 +1,4 @@
-package Jonathan.EP1;
+
 
 /*
 
@@ -20,29 +20,29 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 
-public class Graph {
+public class Graph1 {
     protected int lastIndex; // temporario para contabilizar indices dos vertices no grafo
-    public Map<Integer, Node> vertices; // vetor de vertices indexados por 'id'
-    public Map<Node, List<Edge>> edgeByVertices; // lista de adjacencia
+    public Map<Integer, Node1> vertices; // vetor de vertices indexados por 'id'
+    public Map<Node1, List<Edge1>> edgeByVertices; // lista de adjacencia
     public int vertexTotal, edgeTotal; // total de vertices e arestas no grafo
     
     private int[][] distanceMatrix;
     
-    public Graph() {
+    public Graph1() {
         init(10);
     }
-    public Graph(int n) {
+    public Graph1(int n) {
     	init(n);
 	}
 	
     protected void init( int n ) {
-        vertices = new LinkedHashMap<Integer, Node>( n );
+        vertices = new LinkedHashMap<Integer, Node1>( n );
         
         lastIndex = 0;
         edgeTotal = 0;
     }
     
-    public void addNode( Node v ) {
+    public void addNode( Node1 v ) {
         v.setId( lastIndex++ );
         vertices.put( v.getId(), v );
     }
@@ -50,7 +50,7 @@ public class Graph {
     public void initAdj( int m ) { //chamar para finalizar insercao de vertices
         vertexTotal = vertices.size();
         
-        edgeByVertices = new LinkedHashMap<Node, List<Edge>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
+        edgeByVertices = new LinkedHashMap<Node1, List<Edge1>>( vertexTotal ); // 1 lista de adjacencia para cada vertice
     }
     
     
@@ -60,14 +60,14 @@ public class Graph {
     }
     
     //insere v na lista de adjacencia de u
-    public void insertAdj( Node u, Node v ) {
-    	List<Edge> edges = edgeByVertices.get( u );
+    public void insertAdj( Node1 u, Node1 v ) {
+    	List<Edge1> edges = edgeByVertices.get( u );
     	
     	if( edges == null ){
-    		edges = new ArrayList<Edge>();
+    		edges = new ArrayList<Edge1>();
     	}
     	
-    	edges.add( new Edge( u, v ) );
+    	edges.add( new Edge1( u, v ) );
     	
     	edgeByVertices.put(u, edges); 
         edgeTotal++;
@@ -89,7 +89,7 @@ public class Graph {
     */
 
     public void print() {
-        Graph graph = this;
+        Graph1 graph = this;
         int n = graph.vertexTotal;
         int[][] madj = new int[n][n];
         
@@ -99,10 +99,10 @@ public class Graph {
             }
         }
 
-        for ( Entry< Node, List<Edge>> entry: edgeByVertices.entrySet() ) {
+        for ( Entry< Node1, List<Edge1>> entry: edgeByVertices.entrySet() ) {
             System.out.print( entry.getKey().getName() + ": " );
             
-            for( Edge edge : entry.getValue() ){
+            for( Edge1 edge : entry.getValue() ){
             	System.out.print( edge.getTo().getName() + ", " );
             	madj[ entry.getKey().getId() ][ edge.getTo().getId() ] = 1;
             }
@@ -128,10 +128,10 @@ public class Graph {
     	
     	i = 0;
     	
-    	for( Node vertex : vertices.values() ){
+    	for( Node1 vertex : vertices.values() ){
     		breadthFirstSearch( vertex );
     		
-    		for( Node other: vertices.values() ){    		
+    		for( Node1 other: vertices.values() ){    		
 	    		distanceMatrix[i][ other.getId() ] = other.getDistance();
     		}
     		i++;
@@ -152,10 +152,10 @@ public class Graph {
     	return print.toString();
     }
     
-    private void breadthFirstSearch( Node source ){
-    	Queue<Node> queue = new LinkedList<Node>();
+    private void breadthFirstSearch( Node1 source ){
+    	Queue<Node1> queue = new LinkedList<Node1>();
     	
-    	for( Node node : vertices.values() ){
+    	for( Node1 node : vertices.values() ){
     		node.setColor( Color.white );
     		node.setDistance( Integer.MAX_VALUE );
     	}
@@ -165,11 +165,11 @@ public class Graph {
     	
     	queue.add(source);
     	
-    	Node node;
+    	Node1 node;
     	while( !queue.isEmpty() ){
     		node  = queue.poll();
 
-    		for( Edge edge : edgeByVertices.get( node ) ){
+    		for( Edge1 edge : edgeByVertices.get( node ) ){
     			if( edge.getTo().getColor().equals( Color.white ) ){
     				edge.getTo().setDistance( node.getDistance() + 1 );
     				edge.getTo().setColor(Color.gray);

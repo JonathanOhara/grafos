@@ -1,33 +1,30 @@
-package Jonathan.EP4;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
-import Jonathan.EP4.Graph;
-import Jonathan.EP4.Node;
-
 public class MatrizDist2 {
 	public static void main( String[] args ) {
-		Graph graph = readGraph();
+		Graph4 graph = readGraph();
 		graph.calculateDistanceMatrixByDikstra();
 		System.out.println( graph.getDistanceMatrix() );
 //		test();
 	}
 	
-    public static Graph readGraph() {
+    public static Graph4 readGraph() {
     	String name;
         int idFrom, idTo, i, m, n, weight;
         
-        Node v;
+        Node4 v;
         Scanner scanner = new Scanner( System.in );
 
         n = scanner.nextInt();
         
-        Graph graph = new Graph( n );
+        Graph4 graph = new Graph4( n );
         
         for ( i = 0; i < n; i++ ) {
             name = scanner.next();
-            v = new Node( name );
+            v = new Node4( name );
             graph.addNode( v );
         }
         
@@ -47,7 +44,7 @@ public class MatrizDist2 {
     }
 	
    public static void test(){
-    	Graph graph;
+    	Graph4 graph;
     	ByteArrayInputStream in;
     	String inString, outString;
     	

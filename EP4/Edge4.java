@@ -1,15 +1,15 @@
-package Jonathan.EP4;
 
 
-public class Edge {
-    private Node from, to;
+
+public class Edge4 {
+    private Node4 from, to;
     
     private int weight;
 	
-    public Edge() {
+    public Edge4() {
 	}
     
-    public Edge(Node from, Node to, int weight) {
+    public Edge4(Node4 from, Node4 to, int weight) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -17,21 +17,21 @@ public class Edge {
 	}
 
     public void invertFromTo(){
-    	Node aux = from;
+    	Node4 aux = from;
     	from = to;
     	to = aux;
     }
     
-	public Node getFrom() {
+	public Node4 getFrom() {
 		return from;
 	}
-	public void setFrom(Node from) {
+	public void setFrom(Node4 from) {
 		this.from = from;
 	}
-	public Node getTo() {
+	public Node4 getTo() {
 		return to;
 	}
-	public void setTo(Node to) {
+	public void setTo(Node4 to) {
 		this.to = to;
 	}
 
