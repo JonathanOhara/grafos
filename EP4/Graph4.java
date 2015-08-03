@@ -136,7 +136,7 @@ public class Graph4 {
 	
 	private void dijkstra(Node4 from) {
 		Node4 u;
-		PriorityQueue<Node4> queue = new PriorityQueue<Node4>(new Comparator<Node4>() {
+		PriorityQueue<Node4> queue = new PriorityQueue<Node4>(vertexTotal, new Comparator<Node4>() {
 			@Override
 			public int compare(Node4 o1, Node4 o2) {
 				return Integer.compare(o1.getDistance(), o2.getDistance());
