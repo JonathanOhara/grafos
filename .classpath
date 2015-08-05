@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="EP3"/>
 	<classpathentry kind="src" path="EP4"/>
 	<classpathentry kind="src" path="EP5"/>
-	<classpathentry kind="src" path="EXEMPLOS"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

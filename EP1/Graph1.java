@@ -154,6 +154,7 @@ public class Graph1 {
     
     private void breadthFirstSearch( Node1 source ){
     	Queue<Node1> queue = new LinkedList<Node1>();
+    	List<Edge1> edges;
     	
     	for( Node1 node : vertices.values() ){
     		node.setColor( Color.white );
@@ -169,16 +170,17 @@ public class Graph1 {
     	while( !queue.isEmpty() ){
     		node  = queue.poll();
 
-    		for( Edge1 edge : edgeByVertices.get( node ) ){
-    			if( edge.getTo().getColor().equals( Color.white ) ){
-    				edge.getTo().setDistance( node.getDistance() + 1 );
-    				edge.getTo().setColor(Color.gray);
-    				queue.add(edge.getTo());
-    			}
-    			node.setColor( Color.black );
+    		edges = edgeByVertices.get( node );
+    		if( edges != null ){
+	    		for( Edge1 edge : edges ){
+	    			if( edge.getTo().getColor().equals( Color.white ) ){
+	    				edge.getTo().setDistance( node.getDistance() + 1 );
+	    				edge.getTo().setColor(Color.gray);
+	    				queue.add(edge.getTo());
+	    			}
+	    			node.setColor( Color.black );
+	    		}
     		}
     	}
     }
-
 }
-
